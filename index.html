@@ -7,10 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-
+ 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --black: #111111;
       --white: #ffffff;
@@ -22,9 +22,9 @@
       --radius: 12px;
       --radius-sm: 8px;
     }
-
+ 
     html { scroll-behavior: smooth; }
-
+ 
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--gray-100);
@@ -32,7 +32,7 @@
       min-height: 100vh;
       padding-bottom: 60px;
     }
-
+ 
     /* ── HEADER ── */
     .site-header {
       background: var(--black);
@@ -45,13 +45,13 @@
       z-index: 100;
       box-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
-
+ 
     .logo-wrap img {
       height: 36px;
       filter: invert(1) brightness(10);
       display: block;
     }
-
+ 
     /* ── HERO ── */
     .hero {
       background: var(--black);
@@ -61,7 +61,7 @@
       position: relative;
       overflow: hidden;
     }
-
+ 
     .hero::before {
       content: '';
       position: absolute;
@@ -69,7 +69,7 @@
       background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,255,255,0.06) 0%, transparent 70%);
       pointer-events: none;
     }
-
+ 
     .hero-eyebrow {
       font-size: 11px;
       font-weight: 600;
@@ -78,7 +78,7 @@
       color: var(--gray-400);
       margin-bottom: 14px;
     }
-
+ 
     .hero h1 {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(32px, 5vw, 52px);
@@ -86,12 +86,12 @@
       line-height: 1.1;
       margin-bottom: 20px;
     }
-
+ 
     .hero h1 em {
       font-style: italic;
       color: var(--gray-400);
     }
-
+ 
     .hero-sub {
       font-size: 15px;
       color: var(--gray-400);
@@ -99,7 +99,7 @@
       margin: 0 auto;
       line-height: 1.6;
     }
-
+ 
     /* ── PAYMENT TERMS BANNER ── */
     .terms-banner {
       background: var(--white);
@@ -112,7 +112,7 @@
       position: relative;
       z-index: 10;
     }
-
+ 
     .terms-banner-label {
       font-size: 10px;
       font-weight: 600;
@@ -121,17 +121,17 @@
       color: var(--gray-400);
       margin-bottom: 6px;
     }
-
+ 
     .terms-banner p {
       font-size: 14px;
       color: var(--gray-600);
       line-height: 1.6;
     }
-
+ 
     .terms-banner strong {
       color: var(--black);
     }
-
+ 
     /* ── CARD ── */
     .card {
       background: var(--white);
@@ -139,7 +139,7 @@
       padding: 40px;
       box-shadow: 0 2px 16px rgba(0,0,0,0.06);
     }
-
+ 
     /* ── LAYOUT ── */
     .container {
       max-width: 740px;
@@ -149,7 +149,7 @@
       flex-direction: column;
       gap: 24px;
     }
-
+ 
     /* ── SECTION LABELS ── */
     .section-label {
       font-size: 10px;
@@ -162,32 +162,32 @@
       align-items: center;
       gap: 10px;
     }
-
+ 
     .section-label::after {
       content: '';
       flex: 1;
       height: 1px;
       background: var(--gray-200);
     }
-
+ 
     /* ── FORM GRID ── */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
-
+ 
     .form-grid .full {
       grid-column: 1 / -1;
     }
-
+ 
     /* ── FIELD ── */
     .field {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-
+ 
     label {
       font-size: 12px;
       font-weight: 600;
@@ -195,7 +195,7 @@
       text-transform: uppercase;
       color: var(--gray-600);
     }
-
+ 
     label .optional {
       font-weight: 400;
       text-transform: none;
@@ -203,7 +203,7 @@
       color: var(--gray-400);
       margin-left: 4px;
     }
-
+ 
     input[type="text"],
     input[type="email"],
     input[type="tel"],
@@ -223,7 +223,7 @@
       appearance: none;
       -webkit-appearance: none;
     }
-
+ 
     input:focus,
     select:focus,
     textarea:focus {
@@ -231,12 +231,12 @@
       border-color: var(--black);
       box-shadow: 0 0 0 3px rgba(17,17,17,0.07);
     }
-
+ 
     input::placeholder,
     textarea::placeholder {
       color: var(--gray-400);
     }
-
+ 
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
@@ -244,12 +244,12 @@
       padding-right: 38px;
       cursor: pointer;
     }
-
+ 
     /* ── AMOUNT FIELD ── */
     .amount-wrap {
       position: relative;
     }
-
+ 
     .amount-wrap .currency {
       position: absolute;
       left: 14px;
@@ -260,11 +260,11 @@
       font-weight: 600;
       pointer-events: none;
     }
-
+ 
     .amount-wrap input {
       padding-left: 28px;
     }
-
+ 
     /* ── SUBMIT BUTTON ── */
     .submit-btn {
       width: 100%;
@@ -282,29 +282,29 @@
       position: relative;
       overflow: hidden;
     }
-
+ 
     .submit-btn:hover:not(:disabled) {
       background: #333;
       transform: translateY(-1px);
       box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     }
-
+ 
     .submit-btn:active:not(:disabled) {
       transform: translateY(0);
     }
-
+ 
     .submit-btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-
+ 
     .btn-inner {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
     }
-
+ 
     /* ── SPINNER ── */
     .spinner {
       width: 18px;
@@ -315,12 +315,12 @@
       animation: spin 0.7s linear infinite;
       display: none;
     }
-
+ 
     .submit-btn.loading .spinner { display: block; }
     .submit-btn.loading .btn-text { opacity: 0.6; }
-
+ 
     @keyframes spin { to { transform: rotate(360deg); } }
-
+ 
     /* ── SUCCESS STATE ── */
     .success-card {
       background: var(--white);
@@ -330,9 +330,9 @@
       box-shadow: 0 2px 16px rgba(0,0,0,0.06);
       display: none;
     }
-
+ 
     .success-card.visible { display: block; }
-
+ 
     .success-icon {
       width: 64px;
       height: 64px;
@@ -344,14 +344,14 @@
       margin: 0 auto 24px;
       font-size: 28px;
     }
-
+ 
     .success-card h2 {
       font-family: 'DM Serif Display', serif;
       font-size: 28px;
       font-weight: 400;
       margin-bottom: 12px;
     }
-
+ 
     .success-card p {
       font-size: 15px;
       color: var(--gray-600);
@@ -359,7 +359,7 @@
       max-width: 380px;
       margin: 0 auto 28px;
     }
-
+ 
     .submit-another {
       background: none;
       border: 1.5px solid var(--black);
@@ -371,12 +371,12 @@
       cursor: pointer;
       transition: all 0.18s ease;
     }
-
+ 
     .submit-another:hover {
       background: var(--black);
       color: var(--white);
     }
-
+ 
     /* ── ERROR ── */
     .error-msg {
       font-size: 12px;
@@ -384,14 +384,14 @@
       margin-top: 4px;
       display: none;
     }
-
+ 
     .field.error input,
     .field.error select {
       border-color: #c0392b;
     }
-
+ 
     .field.error .error-msg { display: block; }
-
+ 
     /* ── TOAST ── */
     .toast {
       position: fixed;
@@ -409,9 +409,9 @@
       z-index: 999;
       white-space: nowrap;
     }
-
+ 
     .toast.show { transform: translateX(-50%) translateY(0); }
-
+ 
     /* ── FOOTER ── */
     .footer {
       text-align: center;
@@ -419,7 +419,7 @@
       font-size: 12px;
       color: var(--gray-400);
     }
-
+ 
     /* ── RESPONSIVE ── */
     @media (max-width: 580px) {
       .site-header { padding: 18px 20px; }
@@ -433,7 +433,7 @@
   </style>
 </head>
 <body>
-
+ 
   <!-- HEADER -->
   <header class="site-header">
     <div class="logo-wrap">
@@ -450,27 +450,27 @@
       </svg>
     </div>
   </header>
-
+ 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-eyebrow">Creator Portal</div>
     <h1>Submit Your<br /><em>Invoice</em></h1>
     <p class="hero-sub">Submit your retainer invoice below. All submissions are reviewed by your Partnership Manager.</p>
   </section>
-
+ 
   <!-- MAIN -->
   <main class="container">
-
+ 
     <!-- PAYMENT TERMS BANNER -->
     <div class="terms-banner">
       <div class="terms-banner-label">💳 Payment Terms</div>
       <p>Contracts paid out directly from <strong>Reach Social</strong> are on <strong>Net 15</strong> terms. Contracts paid directly by the brand are subject to that brand's payment terms, typically <strong>Net 30</strong>.</p>
     </div>
-
+ 
     <!-- FORM CARD -->
     <div class="card" id="formCard">
       <form id="invoiceForm" novalidate>
-
+ 
         <!-- CREATOR INFO -->
         <div class="section-label">Creator Info</div>
         <div class="form-grid">
@@ -495,9 +495,9 @@
             <span class="error-msg">Please enter your phone number.</span>
           </div>
         </div>
-
+ 
         <hr style="border:none; border-top: 1px solid var(--gray-200); margin: 28px 0;" />
-
+ 
         <!-- CONTRACT INFO -->
         <div class="section-label">Contract Info</div>
         <div class="form-grid">
@@ -548,36 +548,36 @@
             <input type="number" id="numLives" name="numLives" placeholder="e.g. 2" min="0" step="1" />
           </div>
         </div>
-
+ 
         <hr style="border:none; border-top: 1px solid var(--gray-200); margin: 28px 0;" />
-
+ 
         <!-- INVOICE SUBMISSION -->
         <div class="section-label">Invoice Submission</div>
-
+ 
         <div class="field full" id="field-paypalLink">
           <label for="paypalLink">PayPal Invoice Link</label>
           <input type="url" id="paypalLink" name="paypalLink" placeholder="https://www.paypal.com/invoice/..." />
           <span class="error-msg">Please enter your PayPal invoice link.</span>
         </div>
-
+ 
         <hr style="border:none; border-top: 1px solid var(--gray-200); margin: 28px 0;" />
-
+ 
         <!-- NOTES -->
         <div class="field full" style="margin-bottom: 28px;">
           <label for="notes">Additional Notes <span class="optional">(optional)</span></label>
           <textarea id="notes" name="notes" rows="3" placeholder="Anything else we should know about this invoice..." style="resize: vertical;"></textarea>
         </div>
-
+ 
         <button type="submit" class="submit-btn" id="submitBtn">
           <div class="btn-inner">
             <div class="spinner"></div>
             <span class="btn-text">Submit Invoice</span>
           </div>
         </button>
-
+ 
       </form>
     </div>
-
+ 
     <!-- SUCCESS CARD -->
     <div class="success-card" id="successCard">
       <div class="success-icon">✓</div>
@@ -585,36 +585,36 @@
       <p>Your invoice has been received and logged. Your Partnership Manager will be in touch regarding payment processing.</p>
       <button class="submit-another" onclick="resetForm()">Submit Another Invoice</button>
     </div>
-
+ 
     <div class="footer">
       &copy; 2025 Reach Social. All rights reserved.
     </div>
-
+ 
   </main>
-
+ 
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
-
+ 
   <script>
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyREf32mjVoNwm5r7Y2soA5JAEYvLZHd6R6vEbNQhUcGnognC1F8qJoWvzhzU1fGarn9Q/exec";
-
+ 
     function validateField(id, condition) {
       const wrapper = document.getElementById("field-" + id);
       if (!wrapper) return condition;
       wrapper.classList.toggle("error", !condition);
       return condition;
     }
-
+ 
     function showToast(msg) {
       const t = document.getElementById("toast");
       t.textContent = msg;
       t.classList.add("show");
       setTimeout(() => t.classList.remove("show"), 3500);
     }
-
+ 
     document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-
+ 
       const name      = document.getElementById("creatorName").value.trim();
       const handle    = document.getElementById("tiktokHandle").value.trim();
       const email     = document.getElementById("email").value.trim();
@@ -624,7 +624,7 @@
       const amount    = document.getElementById("invoiceAmount").value;
       const numVideos = document.getElementById("numVideos").value;
       const paypalLink = document.getElementById("paypalLink").value.trim();
-
+ 
       let valid = true;
       valid = validateField("creatorName", !!name) && valid;
       valid = validateField("tiktokHandle", !!handle) && valid;
@@ -635,16 +635,16 @@
       valid = validateField("invoiceAmount", !!amount && parseFloat(amount) > 0) && valid;
       valid = validateField("numVideos", !!numVideos) && valid;
       valid = validateField("paypalLink", !!paypalLink) && valid;
-
+ 
       if (!valid) {
         showToast("Please fill out all required fields.");
         return;
       }
-
+ 
       const btn = document.getElementById("submitBtn");
       btn.classList.add("loading");
       btn.disabled = true;
-
+ 
       try {
         const payload = {
           creatorName: name,
@@ -660,18 +660,18 @@
           paypalLink,
           notes: document.getElementById("notes").value.trim()
         };
-
+ 
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
           body: JSON.stringify(payload),
           headers: { "Content-Type": "text/plain" }
         });
-
+ 
         document.getElementById("formCard").style.display = "none";
         document.getElementById("successCard").classList.add("visible");
         window.scrollTo({ top: 0, behavior: "smooth" });
-
+ 
       } catch (err) {
         console.error(err);
         showToast("Something went wrong. Please try again or contact your PM.");
@@ -680,7 +680,7 @@
         btn.disabled = false;
       }
     });
-
+ 
     function resetForm() {
       document.getElementById("invoiceForm").reset();
       document.getElementById("formCard").style.display = "";
@@ -689,6 +689,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
-
+ 
 </body>
 </html>
