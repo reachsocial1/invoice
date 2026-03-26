@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Submission | Reach Social</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111111;
+      --white: #ffffff;
+      --gray-100: #f5f5f5;
+      --gray-200: #e8e8e8;
+      --gray-400: #aaaaaa;
+      --gray-600: #666666;
+      --accent: #111111;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-100);
+      color: var(--black);
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--black);
+      padding: 22px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .logo-wrap img {
+      height: 36px;
+      filter: invert(1) brightness(10);
+      display: block;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 56px 24px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,255,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gray-400);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--gray-400);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── PAYMENT TERMS BANNER ── */
+    .terms-banner {
+      background: var(--white);
+      border-left: 4px solid var(--black);
+      max-width: 740px;
+      margin: -20px auto 0;
+      padding: 20px 28px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 10;
+    }
+
+    .terms-banner-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 6px;
+    }
+
+    .terms-banner p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .terms-banner strong {
+      color: var(--black);
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 40px 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+
+    /* ── FORM GRID ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    /* ── FIELD ── */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+    }
+
+    label .optional {
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--gray-400);
+      margin-left: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--black);
+      background: var(--white);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--black);
+      box-shadow: 0 0 0 3px rgba(17,17,17,0.07);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--gray-400);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+      cursor: pointer;
+    }
+
+    /* ── INVOICE TYPE TOGGLE ── */
+    .invoice-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .toggle-option {
+      display: none;
+    }
+
+    .toggle-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 18px 16px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-align: center;
+    }
+
+    .toggle-label:hover {
+      border-color: var(--black);
+      background: var(--gray-100);
+    }
+
+    .toggle-option:checked + .toggle-label {
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .toggle-icon {
+      font-size: 22px;
+    }
+
+    .toggle-text {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .toggle-sub {
+      font-size: 11px;
+      opacity: 0.6;
+    }
+
+    /* ── INVOICE INPUT PANELS ── */
+    .invoice-panel {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .invoice-panel.active {
+      display: block;
+    }
+
+    /* ── PDF DROP ZONE ── */
+    .drop-zone {
+      border: 2px dashed var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragging {
+      border-color: var(--black);
+      background: var(--gray-100);
+    }
+
+    .drop-zone.has-file {
+      border-color: #2d7a4f;
+      background: #f0faf4;
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-icon { font-size: 28px; margin-bottom: 10px; }
+
+    .drop-text {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    .drop-text strong { color: var(--black); }
+
+    .drop-text .file-name {
+      color: #2d7a4f;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .drop-hint {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 6px;
+    }
+
+    /* ── AMOUNT FIELD ── */
+    .amount-wrap {
+      position: relative;
+    }
+
+    .amount-wrap .currency {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px;
+      color: var(--gray-400);
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .amount-wrap input {
+      padding-left: 28px;
+    }
+
+    /* ── SUBMIT BUTTON ── */
+    .submit-btn {
+      width: 100%;
+      padding: 18px 24px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: #333;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .submit-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* ── SPINNER ── */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .submit-btn.loading .spinner { display: block; }
+    .submit-btn.loading .btn-text { opacity: 0.6; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SUCCESS STATE ── */
+    .success-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      display: none;
+    }
+
+    .success-card.visible { display: block; }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px;
+    }
+
+    .success-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .success-card p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      max-width: 380px;
+      margin: 0 auto 28px;
+    }
+
+    .submit-another {
+      background: none;
+      border: 1.5px solid var(--black);
+      border-radius: var(--radius-sm);
+      padding: 12px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .submit-another:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* ── ERROR ── */
+    .error-msg {
+      font-size: 12px;
+      color: #c0392b;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .field.error input,
+    .field.error select {
+      border-color: #c0392b;
+    }
+
+    .field.error .error-msg { display: block; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #c0392b;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 40px 20px 0;
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .site-header { padding: 18px 20px; }
+      .hero { padding: 40px 20px 56px; }
+      .terms-banner { margin: -16px 16px 0; border-radius: var(--radius); border-left: 4px solid var(--black); }
+      .card { padding: 24px 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .full { grid-column: 1; }
+      .container { padding: 28px 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo-wrap">
+      <!-- Inline SVG of the Reach Social logo (white version) -->
+      <svg height="36" viewBox="0 0 420 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Speech bubble icon -->
+        <rect x="2" y="2" width="74" height="70" rx="18" fill="white"/>
+        <path d="M2 58 Q2 74 18 74 L32 74 L26 86 L46 74 L58 74 Q74 74 74 58" fill="white"/>
+        <!-- RS letters -->
+        <text x="14" y="52" font-family="Arial Black, sans-serif" font-size="32" font-weight="900" fill="#111111">RS</text>
+        <!-- Reach Social wordmark -->
+        <text x="90" y="62" font-family="Arial, sans-serif" font-size="48" font-weight="900" fill="white" letter-spacing="-1">Reach</text>
+        <text x="258" y="62" font-family="Arial, sans-serif" font-size="48" font-weight="400" fill="white" letter-spacing="-1">Social</text>
+      </svg>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Creator Portal</div>
+    <h1>Submit Your<br /><em>Invoice</em></h1>
+    <p class="hero-sub">Submit your retainer invoice below. All submissions are reviewed by your Partnership Manager.</p>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- PAYMENT TERMS BANNER -->
+    <div class="terms-banner">
+      <div class="terms-banner-label">💳 Payment Terms</div>
+      <p>Contracts paid out directly from <strong>Reach Social</strong> are on <strong>Net 15</strong> terms. Contracts paid directly by the brand are subject to that brand's payment terms, typically <strong>Net 30</strong>.</p>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="card" id="formCard">
+      <form id="invoiceForm" novalidate>
+
+        <!-- CREATOR INFO -->
+        <div class="section-label">Creator Info</div>
+        <div class="form-grid">
+          <div class="field" id="field-creatorName">
+            <label for="creatorName">Full Name</label>
+            <input type="text" id="creatorName" name="creatorName" placeholder="Your full name" autocomplete="name" />
+            <span class="error-msg">Please enter your name.</span>
+          </div>
+          <div class="field" id="field-tiktokHandle">
+            <label for="tiktokHandle">TikTok Handle</label>
+            <input type="text" id="tiktokHandle" name="tiktokHandle" placeholder="@handle" />
+            <span class="error-msg">Please enter your TikTok handle.</span>
+          </div>
+          <div class="field" id="field-email">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" />
+            <span class="error-msg">Please enter a valid email address.</span>
+          </div>
+          <div class="field" id="field-phone">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" autocomplete="tel" />
+            <span class="error-msg">Please enter your phone number.</span>
+          </div>
+        </div>
+
+        <hr style="border:none; border-top: 1px solid var(--gray-200); margin: 28px 0;" />
+
+        <!-- CONTRACT INFO -->
+        <div class="section-label">Contract Info</div>
+        <div class="form-grid">
+          <div class="field" id="field-brand">
+            <label for="brand">Brand</label>
+            <select id="brand" name="brand">
+              <option value="">Select a brand...</option>
+              <option>TruHeight</option>
+              <option>TherapetMD</option>
+              <option>Ghost</option>
+              <option>Nude Mints</option>
+              <option>Pop &amp; Bottle</option>
+              <option>SALT</option>
+              <option>8 Sheep</option>
+              <option>SEEQ</option>
+              <option>My Protein</option>
+              <option>Breathe Right</option>
+              <option>Sleepy Tie</option>
+              <option>Archer</option>
+            </select>
+            <span class="error-msg">Please select a brand.</span>
+          </div>
+          <div class="field" id="field-partnershipManager">
+            <label for="partnershipManager">Partnership Manager</label>
+            <select id="partnershipManager" name="partnershipManager">
+              <option value="">Select your PM...</option>
+              <option>Veronica</option>
+              <option>Lexi</option>
+              <option>Other</option>
+            </select>
+            <span class="error-msg">Please select your Partnership Manager.</span>
+          </div>
+          <div class="field" id="field-invoiceAmount">
+            <label for="invoiceAmount">Invoice Amount</label>
+            <div class="amount-wrap">
+              <span class="currency">$</span>
+              <input type="number" id="invoiceAmount" name="invoiceAmount" placeholder="0.00" min="0" step="0.01" />
+            </div>
+            <span class="error-msg">Please enter the invoice amount.</span>
+          </div>
+          <div class="field" id="field-numVideos">
+            <label for="numVideos">Number of Videos</label>
+            <input type="number" id="numVideos" name="numVideos" placeholder="e.g. 4" min="0" step="1" />
+            <span class="error-msg">Please enter the number of videos.</span>
+          </div>
+          <div class="field">
+            <label for="numLives">Number of Lives <span class="optional">(optional)</span></label>
+            <input type="number" id="numLives" name="numLives" placeholder="e.g. 2" min="0" step="1" />
+          </div>
+        </div>
+
+        <hr style="border:none; border-top: 1px solid var(--gray-200); margin: 28px 0;" />
+
+        <!-- INVOICE SUBMISSION -->
+        <div class="section-label">Invoice Submission</div>
+
+        <div class="field full" id="field-invoiceType">
+          <label>Invoice Type</label>
+          <div class="invoice-toggle" style="margin-top: 6px;">
+            <input type="radio" name="invoiceType" id="type-pdf" value="PDF Upload" class="toggle-option" />
+            <label for="type-pdf" class="toggle-label">
+              <span class="toggle-icon">📄</span>
+              <span class="toggle-text">Upload PDF</span>
+              <span class="toggle-sub">Upload your invoice file</span>
+            </label>
+            <input type="radio" name="invoiceType" id="type-paypal" value="PayPal Link" class="toggle-option" />
+            <label for="type-paypal" class="toggle-label">
+              <span class="toggle-icon">🔗</span>
+              <span class="toggle-text">PayPal Invoice</span>
+              <span class="toggle-sub">Paste your invoice link</span>
+            </label>
+          </div>
+          <span class="error-msg" id="invoiceTypeError" style="display:none; color: #c0392b; font-size: 12px; margin-top: 6px;">Please select an invoice type.</span>
+        </div>
+
+        <!-- PDF Panel -->
+        <div class="invoice-panel" id="pdfPanel">
+          <div class="drop-zone" id="dropZone">
+            <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" />
+            <div class="drop-icon">☁️</div>
+            <div class="drop-text" id="dropText">
+              <strong>Drop your PDF here</strong> or click to browse
+            </div>
+            <div class="drop-hint">PDF files only, max 10MB</div>
+          </div>
+        </div>
+
+        <!-- PayPal Panel -->
+        <div class="invoice-panel" id="paypalPanel">
+          <div class="field">
+            <label for="paypalLink">PayPal Invoice Link</label>
+            <input type="url" id="paypalLink" name="paypalLink" placeholder="https://www.paypal.com/invoice/..." />
+          </div>
+        </div>
+
+        <hr style="border:none; border-top: 1px solid var(--gray-200); margin: 28px 0;" />
+
+        <!-- NOTES -->
+        <div class="field full" style="margin-bottom: 28px;">
+          <label for="notes">Additional Notes <span class="optional">(optional)</span></label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Anything else we should know about this invoice..." style="resize: vertical;"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <div class="btn-inner">
+            <div class="spinner"></div>
+            <span class="btn-text">Submit Invoice</span>
+          </div>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- SUCCESS CARD -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">✓</div>
+      <h2>Invoice Submitted!</h2>
+      <p>Your invoice has been received and logged. Your Partnership Manager will be in touch regarding payment processing.</p>
+      <button class="submit-another" onclick="resetForm()">Submit Another Invoice</button>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 Reach Social. All rights reserved.
+    </div>
+
+  </main>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ── CONFIG ── replace this with your deployed Apps Script URL
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyREf32mjVoNwm5r7Y2soA5JAEYvLZHd6R6vEbNQhUcGnognC1F8qJoWvzhzU1fGarn9Q/exec";
+
+    // ── INVOICE TYPE TOGGLE ──
+    document.querySelectorAll('input[name="invoiceType"]').forEach(radio => {
+      radio.addEventListener("change", () => {
+        document.getElementById("pdfPanel").classList.remove("active");
+        document.getElementById("paypalPanel").classList.remove("active");
+        document.getElementById("invoiceTypeError").style.display = "none";
+        if (radio.value === "PDF Upload") {
+          document.getElementById("pdfPanel").classList.add("active");
+        } else {
+          document.getElementById("paypalPanel").classList.add("active");
+        }
+      });
+    });
+
+    // ── DROP ZONE ──
+    const dropZone = document.getElementById("dropZone");
+    const pdfFile = document.getElementById("pdfFile");
+    const dropText = document.getElementById("dropText");
+
+    dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("dragging"); });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragging"));
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropZone.classList.remove("dragging");
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === "application/pdf") {
+        pdfFile.files = e.dataTransfer.files;
+        showFileName(file.name);
+      } else {
+        showToast("Please upload a PDF file.");
+      }
+    });
+
+    pdfFile.addEventListener("change", () => {
+      if (pdfFile.files[0]) showFileName(pdfFile.files[0].name);
+    });
+
+    function showFileName(name) {
+      dropText.innerHTML = `<span class="file-name">📎 ${name}</span>`;
+      dropZone.classList.add("has-file");
+    }
+
+    // ── VALIDATION ──
+    function validateField(id, condition) {
+      const wrapper = document.getElementById("field-" + id);
+      if (!wrapper) return condition;
+      if (!condition) {
+        wrapper.classList.add("error");
+      } else {
+        wrapper.classList.remove("error");
+      }
+      return condition;
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 3500);
+    }
+
+    // ── FILE TO BASE64 ──
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ── FORM SUBMIT ──
+    document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("creatorName").value.trim();
+      const handle = document.getElementById("tiktokHandle").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const brand = document.getElementById("brand").value;
+      const pm = document.getElementById("partnershipManager").value;
+      const amount = document.getElementById("invoiceAmount").value;
+      const numVideos = document.getElementById("numVideos").value;
+      const invoiceType = document.querySelector('input[name="invoiceType"]:checked')?.value;
+
+      let valid = true;
+      valid = validateField("creatorName", !!name) && valid;
+      valid = validateField("tiktokHandle", !!handle) && valid;
+      valid = validateField("email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) && valid;
+      valid = validateField("phone", !!phone) && valid;
+      valid = validateField("brand", !!brand) && valid;
+      valid = validateField("partnershipManager", !!pm) && valid;
+      valid = validateField("invoiceAmount", !!amount && parseFloat(amount) > 0) && valid;
+      valid = validateField("numVideos", !!numVideos) && valid;
+
+      if (!invoiceType) {
+        document.getElementById("invoiceTypeError").style.display = "block";
+        valid = false;
+      }
+
+      if (!valid) {
+        showToast("Please fill out all required fields.");
+        return;
+      }
+
+      // Validate invoice-specific fields
+      if (invoiceType === "PDF Upload") {
+        if (!pdfFile.files[0]) {
+          showToast("Please upload your PDF invoice.");
+          return;
+        }
+        if (pdfFile.files[0].size > 10 * 1024 * 1024) {
+          showToast("PDF file must be under 10MB.");
+          return;
+        }
+      }
+
+      if (invoiceType === "PayPal Link") {
+        const ppLink = document.getElementById("paypalLink").value.trim();
+        if (!ppLink) {
+          showToast("Please enter your PayPal invoice link.");
+          return;
+        }
+      }
+
+      // Set loading state
+      const btn = document.getElementById("submitBtn");
+      btn.classList.add("loading");
+      btn.disabled = true;
+
+      try {
+        let pdfData = null;
+        let pdfFileName = null;
+
+        if (invoiceType === "PDF Upload" && pdfFile.files[0]) {
+          pdfData = await fileToBase64(pdfFile.files[0]);
+          pdfFileName = `${name.replace(/\s+/g, "_")}_${brand}_${Date.now()}.pdf`;
+        }
+
+        const payload = {
+          creatorName: name,
+          tiktokHandle: handle,
+          email,
+          phone,
+          brand,
+          partnershipManager: pm,
+          invoiceAmount: amount,
+          numVideos,
+          numLives: document.getElementById("numLives").value || "",
+          invoiceType,
+          paypalLink: document.getElementById("paypalLink").value.trim(),
+          notes: document.getElementById("notes").value.trim(),
+          pdfData,
+          pdfFileName
+        };
+
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          document.getElementById("formCard").style.display = "none";
+          document.getElementById("successCard").classList.add("visible");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          throw new Error(result.error || "Submission failed");
+        }
+
+      } catch (err) {
+        console.error(err);
+        showToast("Something went wrong. Please try again or contact your PM.");
+      } finally {
+        btn.classList.remove("loading");
+        btn.disabled = false;
+      }
+    });
+
+    // ── RESET ──
+    function resetForm() {
+      document.getElementById("invoiceForm").reset();
+      document.getElementById("formCard").style.display = "";
+      document.getElementById("successCard").classList.remove("visible");
+      document.querySelectorAll(".field.error").forEach(f => f.classList.remove("error"));
+      document.getElementById("pdfPanel").classList.remove("active");
+      document.getElementById("paypalPanel").classList.remove("active");
+      dropText.innerHTML = '<strong>Drop your PDF here</strong> or click to browse';
+      dropZone.classList.remove("has-file");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+
+</body>
+</html>
